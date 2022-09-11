@@ -105,6 +105,10 @@ func validateArbiterSpec(mdb mdbv1.MongoDBCommunity) error {
 func validateAuthModeSpec(mdb mdbv1.MongoDBCommunity) error {
 	allModes := mdb.Spec.Security.Authentication.Modes
 
+	if len(allModes) == 0 {
+		return fmt.Errorf("modes list is empty.")
+	}
+
 	// Check that no auth is defined more than once
 	mapModes := make(map[mdbv1.AuthMode]struct{})
 	for i, mode := range allModes {
