@@ -233,6 +233,7 @@ func (b *Builder) Build() (AutomationConfig, error) {
 	members := make([]ReplicaSetMember, b.members+b.arbiters)
 	processes := make([]Process, b.members+b.arbiters)
 
+	// check for invalid feature compatibility version
 	_, err := semver.Make(fmt.Sprintf("%s.0", b.fcv))
 
 	if err != nil {
